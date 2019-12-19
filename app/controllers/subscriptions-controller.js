@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const asyncWrapper = require("../utilities/async-wrapper").AsyncWrapper;
 const SubscriptionsService = require("../services/subscriptions-service");
+const validator = require("../middleware/validator");
+
 const subscriptionsService = new SubscriptionsService();
 
 
@@ -20,7 +22,7 @@ router.get("/:id", asyncWrapper(async (req, res) => {
 
 //POST api/subscriptions
 router.post("/", asyncWrapper(async(req, res) => {
-  let subscription = subscriptionsService.create(req.body);
+  let subscription = await subscriptionsService.create(req.body);
   res.send(subscription);
 }));
 
